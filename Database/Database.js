@@ -1,21 +1,44 @@
 const { MongoClient } = require("mongodb");
-const url =
-  "mongodb+srv://Darkshiira:Boodise87@cluster0.wcjvn29.mongodb.net/?retryWrites=true&w=majority";
+require("dotenv").config();
 
-const db = {
-  client: undefined,
-  Names: undefined,
-  connect: async () =>
-    MongoClient.connect(url)
-      .then((client) => {
-        db.client = client;
-        db.Names = client.db("Test").collection("Names");
-        console.log("connected to database");
-      })
-      .catch((error) => console.log(error)),
-  disconnect: () => {
-    db.client.close();
-  },
-};
+class MongoDatabase {
+  // The URL required to connect to your MongoDB database.
+  url = process.env.URL;
 
-exports.db = db;
+  //The active MongoDB client. Used
+  client;
+
+  //Name of the database to use.
+  database = "InstaPups-Backend";
+
+  // Array of collections you want to be able to access.
+  collections = ["Users", "Posts", "Comments", "Likes", "Following"];
+
+  // Establishes a connection to your MongoDB database.
+  async connect() {
+    try {
+      console.log("Attempting to connect to database.");
+      this.client = await MongoClient.connect(this.url);
+      console.log("Successfully connected to the database.");
+    } catch (err) {
+      console.log(err);
+    }
+
+    this.setupCollections();
+  }
+
+  // Closes the connection to your MongoDB database.
+  async disconnect() {
+    console.log("closing DB connection");
+    await this.client.close();
+  }
+
+  // Takes an array of collection names and sets up access to those collections.
+  setupCollections() {
+    for (const collection of this.collections) {
+      this[collection] = this.client.db(this.database).collection(collection);
+    }
+  }
+}
+
+exports.db = new MongoDatabase();
