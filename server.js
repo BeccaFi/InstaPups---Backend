@@ -16,6 +16,6 @@ server.use(express.json());
 server.use("/auth", AuthenticationRoute);
 
 
-server.listen(5050);
+server.listen(5051);
 
 exports.server = server;
