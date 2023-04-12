@@ -14,7 +14,12 @@ describe('Login', () => {
         expect(res.body.token).toBeTruthy();
     });
 
-    it('a failed login should return statuscode 401 if not a database-error', async () => {
+    it('a failed login due to joi-schema should return statuscode 400', async () => {
+        const res = await request(server).post('/auth/login').send({username: 'test', password: 'test'});
+        expect(res.status).toBe(400);
+    });
+
+    it('a failed login due to wrong password should return statuscode 401 if not a database-error', async () => {
         const res = await request(server).post('/auth/login').send({})
         expect(res.status).toBe(401);
     });
