@@ -29,7 +29,7 @@ describe('Login', () => {
     });
 
     it('a failed login should return statuscode 500 if a database-error', async () => {
-        const res = await request(server).post('/auth/login').send({username: 'test', password: 'test'})
+        const res = await request(server).post('/auth/login').send({username: 'testing', password: 'testing'})
         expect(res.status).toBe(500);
     });
 });
