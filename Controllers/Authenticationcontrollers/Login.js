@@ -14,13 +14,15 @@ module.exports.Login = async (req, res) => {
     const {error, value} = schema.validate(req.body);
 
     if(error) {
-        return res.status(401).send(error.details[0].message);
+        return res.status(400).send(error.details[0].message);
     }
 
     const { username, password } = value;
 
-    const findUser = await db.Users.find({username, password}).toArray();
+    const findUser = await db.Users.find({username}).toArray();
+    const validPassword = await bcrypt.compare(password, findUser.password);
 
+    if(!validPassword) return res.status(401).json('Password is wrong');
     if (findUser.length === 1) {
         const token = jwt.sign({username}, process.env.JWT_SECRET, {expiresIn: '1h'});
         return res.status(200).send({token});
