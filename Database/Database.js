@@ -1,3 +1,4 @@
+const { MongoClient } = require("mongodb");
 require("dotenv").config();
 
 class MongoDatabase {

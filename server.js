@@ -15,6 +15,7 @@ server.use(cookieParser());
 server.use(express.json());
 server.use("/auth", AuthenticationRoute);
 
-server.listen(5051);
+
+server.listen(5050);
 
 exports.server = server;
