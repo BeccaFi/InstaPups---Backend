@@ -8,7 +8,7 @@ const bodyParser = require("body-parser");
 const { db } = require("./Database/Database");
 const { AuthenticationRoute } = require("./Routes/Authenticationroutes");
 const { Feedroute } = require("./Routes/Feedroute");
-const { checkAuthentication } = require("./Middlewares/Authentication");
+const { checkAuthentication } = require("middleware/checkAuthentication");
 
 db.connect();
 
