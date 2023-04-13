@@ -1,4 +1,4 @@
-const { authenticateUser } = require("./checkAuthentication.js");
+const { authenticateUser } = require("../../middleware/checkAuthentication.js");
 const jwt = require("jsonwebtoken");
 
 describe("authUser middleware", () => {
