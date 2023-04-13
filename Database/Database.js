@@ -12,7 +12,7 @@ class MongoDatabase {
   database = "InstaPups-Backend";
 
   // Array of collections you want to be able to access.
-  collections = ["Users", "Posts", "Comments", "Likes", "Following"];
+  collections = ["Users", "Posts"];
 
   // Establishes a connection to your MongoDB database.
   async connect() {
