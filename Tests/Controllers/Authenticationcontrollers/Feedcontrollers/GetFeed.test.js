@@ -1,5 +1,5 @@
-const { db } = require('../../../Database/Database');
-const { server } = require('../../../server');
+const { db } = require('../../../../Database/Database');
+const { server } = require('../../../../server');
 const request = require('supertest');
 const { GetFeed } = require('../../../Controllers/Feedcontrollers/GetFeed');
 
