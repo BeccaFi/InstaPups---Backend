@@ -18,15 +18,18 @@ module.exports.Login = async (req, res) => {
     }
 
     const { username, password } = value;
-
+    try {
     const findUser = await db.Users.find({username}).toArray();
-    const validPassword = await bcrypt.compare(password, findUser.password);
+
+    console.log(findUser)
+    const validPassword = await bcrypt.compare(password, findUser[0].password);
 
     if(!validPassword) return res.status(401).json('Password is wrong');
-    if (findUser.length === 1) {
+
         const token = jwt.sign({username}, process.env.JWT_SECRET, {expiresIn: '1h'});
         return res.status(200).send({token});
-    } else {
+    }
+    catch (error) {
         return res.status(500).send('Something went wrong');
     }
 }
