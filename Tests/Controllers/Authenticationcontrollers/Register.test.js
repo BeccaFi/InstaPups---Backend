@@ -8,10 +8,12 @@ describe('Register new user endpoint', () => {
 
     it('POST /register should respond with 201 if user is successfully added', async () => {
         await db.connect();
+        const numb = Math.floor(Math.random() * 1000);
 
-        const res = await request(server).post('/auth/register').send({username: 'testuser15', password: 'testpass', confirmPassword: 'testpass'});
+        const res = await request(server).post('/auth/register').send({username: `${numb}`, password: 'testpass', confirmPassword: 'testpass'});
         expect(res.status).toBe(201);
     });
+
 
 
     it('POST /register should respond with 400 if body is ommitted or insufficient', async () => {
