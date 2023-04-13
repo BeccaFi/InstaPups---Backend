@@ -15,6 +15,7 @@ describe('Register new user endpoint', () => {
     });
 
 
+
     it('POST /register should respond with 400 if body is ommitted or insufficient', async () => {
         const res = await request(server).post('/auth/register').send({username: 'p'});
         expect(res.status).toBe(400);
