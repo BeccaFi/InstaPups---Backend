@@ -1,8 +1,8 @@
-const { db } = require('../../../../Database/Database');
+const { db } = require('../../../Database/Database');
 const dotenv = require('dotenv').config();
-const { server } = require('../../../../server');
+const { server } = require('../../../server');
 const request = require('supertest');
-const { GetFeed } = require('../../../../Controllers/Feedcontrollers/GetFeed');
+const { GetFeed } = require('../../../Controllers/Feedcontrollers/GetFeed');
 
 const jwt = require("jsonwebtoken");
 const cookie = require('cookie');
