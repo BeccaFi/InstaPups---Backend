@@ -5,19 +5,7 @@ const jwt = require('jsonwebtoken');
 const { db } = require('../../Database/Database');
 
 module.exports.GetFeed = async (req, res) => {
-
-    const schema = joi.object({
-        username: joi.string().required(),
-    });
-
-    const { value, error } = schema.validate(req.query);
-
-    if (error) {
-        return res.status(400).send(error.details[0].message);
-    }
-
-    const { username } = value;
-
+    const { username } = req.user
     try {
         const findFollowings = await db.Users.find({username}).toArray();
 
