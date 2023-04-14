@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
 const { db } = require("./Database/Database");
 const { AuthenticationRoute } = require("./Routes/Authenticationroutes");
+const { PostRoutes } = require("./Routes/PostRoutes");
 
 db.connect();
 
@@ -14,8 +15,6 @@ server.use(cors());
 server.use(cookieParser());
 server.use(express.json());
 server.use("/auth", AuthenticationRoute);
-
-
-server.listen(5051);
+server.use("/posts", PostRoutes);
 
 exports.server = server;
