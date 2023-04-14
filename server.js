@@ -26,7 +26,5 @@ server.use("/auth", AuthenticationRoute);
 server.use("/feed", Feedroute)
 server.use("/posts", PostRoutes);
 
-server.listen(5051);
-
 
 exports.server = server;
