@@ -2,8 +2,21 @@ const request = require("supertest");
 const { server } = require("../../../server");
 const { db } = require("../../../Database/Database");
 const { createPost } = require("../../../Controllers/PostControllers/CreatePost");
+const portfinder = require("portfinder");
 
 describe('Check success when user submits a new create post form', () => {
+    let port;
+    let instance;
+  
+    beforeAll(async () => {
+      port = await portfinder.getPortPromise();
+      instance = server.listen(port);
+    });
+
+    afterAll(async() => {
+       await instance.close();
+      });
+    
     
     it('POST to /posts/create should return 201 when successfully added to database', async () => {
         await db.connect();

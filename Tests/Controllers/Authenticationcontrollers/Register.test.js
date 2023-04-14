@@ -2,9 +2,21 @@ const request = require("supertest");
 const { server } = require("../../../server");
 const { Register } = require("../../../Controllers/Authenticationcontrollers/Register");
 const { db } = require("../../../Database/Database");
+const portfinder = require("portfinder");
 // const joi = require("joi");
 
 describe('Register new user endpoint', () => {
+    let port;
+    let instance;
+  
+    beforeAll(async () => {
+      port = await portfinder.getPortPromise();
+      instance = server.listen(port);
+    });
+
+    afterAll(async () => {
+        await instance.close();
+      });
 
     it('POST /auth/register should respond with 201 if user is successfully added', async () => {
         await db.connect();

@@ -2,8 +2,21 @@ const { db } = require('../../../Database/Database');
 const { server } = require('../../../server');
 const request = require('supertest');
 const { Login } = require('../../../Controllers/Authenticationcontrollers/Login');
+const portfinder = require('portfinder');
 
 describe('Login', () => {
+    let port;
+    let instance;
+  
+    beforeAll(async () => {
+      port = await portfinder.getPortPromise();
+      instance = server.listen(port);
+    });
+
+    afterAll(async () => {
+       await instance.close();
+      });
+
     it('a successful login should return statuscode 200', async () => {
         await db.connect();
         const res = await request(server).post('/auth/login').send({username: 'testuser15', password: 'testpass'});
@@ -26,9 +39,6 @@ describe('Login', () => {
         
     });
 
-    // afterAll(() => {
-    //  d  
-    // });
 
     it('a failed login should return statuscode 500 if a database-error', async () => {
         db.disconnect(); 
