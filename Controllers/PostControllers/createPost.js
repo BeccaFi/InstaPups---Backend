@@ -11,8 +11,8 @@ exports.createPost = function createPost (req, res) {
     
     const {username} = req.user;
     const {datePosted, text, photos} = req.body;
-
-    db.Posts.insertOne({username: username, datePosted: datePosted, content: {text: text, photos: photos}})
+    
+    db.Posts.insertOne({username: username, datePosted: datePosted, content: {text: text, photos: photos}, likes: [], comments: []})
     .then(result => {
         return res.status(201).json(result);
     })
