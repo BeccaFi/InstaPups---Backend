@@ -7,7 +7,7 @@ exports.createPost = function createPost (req, res) {
 
     const validation = createPostValidation(req.body);
 
-    if (validation.error) return res.status(400).send(validation.error.details[0].message);
+    if (validation.error) return res.status(400).json(validation.error.details[0].message);
     
     const {username} = req.user;
     const {datePosted, text, photos} = req.body;
@@ -17,6 +17,6 @@ exports.createPost = function createPost (req, res) {
         return res.status(201).json(result);
     })
     .catch(err => {
-        return res.status(500).send(err);
+        return res.status(500).json(err);
     })
 }
