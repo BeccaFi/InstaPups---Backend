@@ -19,9 +19,9 @@ module.exports.GetFeed = async (req, res) => {
     const { username } = validation;
 
     try {
-        const findFollowers = await db.Users.find({username}).toArray();
-        const mappedFollowers = findFollowers[0].followers.map(follower => follower.username);
-        const findPosts = await db.Posts.find({username: {$in: mappedFollowers}}).toArray();
+        const findFollowings = await db.Users.find({username}).toArray();
+        const mappedFollowings = findFollowings[0].following.map(follower => follower.username);
+        const findPosts = await db.Posts.find({username: {$in: mappedFollowings}}).toArray();
         return res.status(200).send(findPosts);
     }
     catch (error) {
