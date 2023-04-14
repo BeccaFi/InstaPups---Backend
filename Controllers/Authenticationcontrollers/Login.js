@@ -26,15 +26,16 @@ module.exports.Login = async (req, res) => {
     if(!validPassword) return res.status(401).json('Incorrect login credentials');
 
         const token = jwt.sign({username}, process.env.JWT_SECRET, {expiresIn: '1h'});
-      
+
         res.cookie('authToken', token, {
             sameSite: 'none',
             secure: true,
             httpOnly: true
           })
+
         return res.status(200).send({token});
     }
     catch (error) {
-        return res.status(500).send('Something went wrong');
+        return res.status(500).send(error);
     }
 }
