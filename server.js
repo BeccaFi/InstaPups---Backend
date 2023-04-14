@@ -10,9 +10,10 @@ const { AuthenticationRoute } = require("./Routes/Authenticationroutes");
 
 const { Feedroute } = require("./Routes/Feedroute");
 const { PostRoutes } = require("./Routes/PostRoutes");
+const portfinder = require('portfinder');
 
 
-db.connect();
+
 
 server.use(cors(
     {
@@ -26,7 +27,17 @@ server.use("/auth", AuthenticationRoute);
 server.use("/feed", Feedroute)
 server.use("/posts", PostRoutes);
 
-server.listen(5051);
+portfinder.getPort((err, port) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+  
+    server.listen(port, () => {
+      console.log(`Server listening on port ${port}`);
+    });
+  });
+
 
 
 exports.server = server;
