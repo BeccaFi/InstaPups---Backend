@@ -9,15 +9,14 @@ module.exports.GetFeed = async (req, res) => {
     try {
         const findFollowings = await db.Users.find({username}).toArray();
 
-        if (!findFollowings[0].following) return res.status(200).send('You are not following anyone');
+        if (!findFollowings[0].following) return res.status(200).json('You are not following anyone');
 
         const mappedFollowings = findFollowings[0].following.map(follower => follower);
-        console.log(mappedFollowings)
         const findPosts = await db.Posts.find({username: {$in: mappedFollowings}}).toArray();
-        return res.status(200).send(findPosts);
+        return res.status(200).json(findPosts);
     }
     catch (error) {
-        return res.status(500).send('Something went wrong');
+        return res.status(500).json('Something went wrong');
     }
 
 }
