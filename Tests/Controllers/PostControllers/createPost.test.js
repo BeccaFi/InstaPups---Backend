@@ -13,7 +13,7 @@ describe('Check success when user submits a new create post form', () => {
     });
 
 
-    it('POST to /posts/create should return 400 if content is fully omitted. Text or photos is required.', async () => {
+    it('POST to /posts/create should return 400 if content (text/photos object) is fully omitted. Text or photos is required.', async () => {
 
         const res = await request(server).post('/posts/create').send({username: 'testuser15', datePosted: '2023-04-13 15:03'});
         expect(res.status).toBe(400);
