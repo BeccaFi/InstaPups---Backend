@@ -5,22 +5,14 @@ const jwt = require('jsonwebtoken');
 const { db } = require('../../Database/Database');
 
 module.exports.GetFeed = async (req, res) => {
-
-    const schema = joi.object({
-        username: joi.string().required(),
-    });
-
-    const { validation, error } = schema.validate(req.query);
-
-    if (error) {
-        return res.status(400).send(error.details[0].message);
-    }
-
-    const { username } = validation;
-
+    const { username } = req.user
     try {
         const findFollowings = await db.Users.find({username}).toArray();
+
+        if (!findFollowings[0].following) return res.status(200).send('You are not following anyone');
+
         const mappedFollowings = findFollowings[0].following.map(follower => follower);
+        console.log(mappedFollowings)
         const findPosts = await db.Posts.find({username: {$in: mappedFollowings}}).toArray();
         return res.status(200).send(findPosts);
     }
