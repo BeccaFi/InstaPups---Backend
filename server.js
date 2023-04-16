@@ -6,8 +6,9 @@ const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
 const { db } = require("./Database/Database");
-const { AuthenticationRoute } = require("./Routes/Authenticationroutes");
 
+const { AuthenticationRoute } = require("./Routes/Authenticationroutes");
+const { Membersroute } = require("./Routes/Membersroute");
 const { Feedroute } = require("./Routes/Feedroute");
 const { PostRoutes } = require("./Routes/PostRoutes");
 
@@ -25,6 +26,7 @@ server.use(express.json());
 server.use("/auth", AuthenticationRoute);
 server.use("/feed", Feedroute)
 server.use("/posts", PostRoutes);
+server.use("/members", Membersroute);
 
 
 exports.server = server;
