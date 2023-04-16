@@ -5,8 +5,6 @@ module.exports.GetMember = async (req, res) => {
     const id = req.params.id;
     const formattedId = id.substring(1);
 
-    console.log(formattedId);
-
     try {
         const findUserInformation = await db.Users.find({_id: new ObjectId(formattedId)}).toArray();
 
@@ -22,7 +20,6 @@ module.exports.GetMember = async (req, res) => {
 
         return res.status(200).json({user: findUserInformation[0], posts: findUsersPosts});
     } catch (error) {
-        console.log(error);
         return res.status(500).json('Something went wrong');
     }
 }
