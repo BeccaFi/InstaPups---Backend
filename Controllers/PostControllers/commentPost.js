@@ -7,7 +7,7 @@ exports.commentPost = async function commentPost (req, res) {
 
     const validation = commentPostValidation(req.body);
 
-    if (validation.error) return res.status(400).send(validation.error.details[0].message);
+    if (validation.error) return res.status(400).json(validation.error.details[0].message);
     
     const {username} = req.user;
     const {id, comment} = req.body;
