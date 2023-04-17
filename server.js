@@ -11,22 +11,22 @@ const { AuthenticationRoute } = require("./Routes/Authenticationroutes");
 const { Membersroute } = require("./Routes/Membersroute");
 const { Feedroute } = require("./Routes/Feedroute");
 const { PostRoutes } = require("./Routes/PostRoutes");
-
+const { deleteRoute } = require("./Routes/deleteRoute");
 
 db.connect();
 
-server.use(cors(
-    {
-        origin: "http://localhost:3000",
-        credentials: true
-    }
-));
+server.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 server.use(cookieParser());
 server.use(express.json());
 server.use("/auth", AuthenticationRoute);
-server.use("/feed", Feedroute)
+server.use("/feed", Feedroute);
 server.use("/posts", PostRoutes);
 server.use("/members", Membersroute);
-
+server.use("/delete", deleteRoute);
 
 exports.server = server;
