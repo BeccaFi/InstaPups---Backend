@@ -1,54 +1,64 @@
-const { authenticateUser } = require("../../middleware/checkAuthentication.js");
 const jwt = require("jsonwebtoken");
+const { authenticateUser } = require("../../middleware/checkAuthentication.js");
 
-describe("authUser middleware", () => {
-  const payload = { id: 123 };
-  const secret = "test-secret";
-  const token = jwt.sign(payload, secret);
+jest.mock("jsonwebtoken");
 
-  it("should set req.user to the decoded token payload if the token is valid", () => {
-    const req = { headers: { authorization: `Bearer ${token}` } };
-    const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+describe("authenticateUser middleware", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  test("should return 401 if no authToken is given", () => {
+    const req = {
+      cookies: {},
+    };
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    };
     const next = jest.fn();
 
     authenticateUser(req, res, next);
 
-    next();
-    req.user = payload;
-
-    expect(next).toHaveBeenCalled();
-    expect(req.user).toEqual(payload);
+    expect(res.status).toHaveBeenCalledWith(401);
+    expect(res.json).toHaveBeenCalledWith({ message: "Unauthorized" });
   });
 
-  it("should return 401 Unauthorized if the token is missing or invalid", () => {
-    const req1 = { headers: {} };
-    const res1 = {
+  test("should return 401 if authToken is invalid", () => {
+    const req = {
+      cookies: {
+        authToken: "invalidToken",
+      },
+    };
+    const res = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn(),
-      send: jest.fn(),
     };
-    const next1 = jest.fn();
+    const next = jest.fn();
+    jwt.verify.mockImplementationOnce(() => {
+      throw new Error();
+    });
 
-    authenticateUser(req1, res1, next1);
+    authenticateUser(req, res, next);
 
-    expect(res1.status).toHaveBeenCalledWith(401);
-    expect(res1.json).toHaveBeenCalledWith({ message: "Unauthorized" });
-    expect(res1.send).not.toHaveBeenCalled();
-    expect(next1).not.toHaveBeenCalled();
+    expect(res.status).toHaveBeenCalledWith(401);
+    expect(res.json).toHaveBeenCalledWith({ message: "Unauthorized" });
+  });
 
-    const req2 = { headers: { authorization: "Bearer invalid-token" } };
-    const res2 = {
-      status: jest.fn().mockReturnThis(),
-      json: jest.fn(),
-      send: jest.fn(),
+  test("calls next with the decoded token if authToken is valid", () => {
+    const req = {
+      cookies: {
+        authToken: "validToken",
+      },
     };
-    const next2 = jest.fn();
+    const res = {};
+    const next = jest.fn();
+    const decodedToken = { username: "testUser" };
+    jwt.verify.mockReturnValueOnce(decodedToken);
 
-    authenticateUser(req2, res2, next2);
+    authenticateUser(req, res, next);
 
-    expect(res2.status).toHaveBeenCalledWith(401);
-    expect(res2.json).toHaveBeenCalledWith({ message: "Unauthorized" });
-    expect(res2.send).not.toHaveBeenCalled();
-    expect(next2).not.toHaveBeenCalled();
+    expect(next).toHaveBeenCalled();
+    expect(req.user).toEqual(decodedToken);
   });
 });
