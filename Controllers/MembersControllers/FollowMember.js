@@ -15,11 +15,20 @@ module.exports.FollowMember = async (req, res) => {
     if (error) {
         return res.status(400).json('Invalid username');
     }
+    if (username === followMember) {
+        return res.status(400).json('You cannot follow yourself');
+    }
 
     try {
+
+        const findUser = await db.Users.find({username}).toArray();
+        if (findUser.following.includes(followMember)) {
+            const unfollowings = db.Users.updateOne({username}, {$pull: {following: unfollowMember}})
+            return res.status(200).json("unfollowed");
+        }
         const followings = db.Users.updateOne({username}, {$push: {following: followMember}})
         
-        return res.status(200).json("You are now following " + followMember);
+        return res.status(200).json("followed");
     }
 
     catch (error) {
