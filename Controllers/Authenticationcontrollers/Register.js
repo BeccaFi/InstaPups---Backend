@@ -12,7 +12,7 @@ module.exports.Register = async (req, res) => {
     const {username, password} = req.body;
     const hashedPassword = bcrypt.hashSync(password, 10);
 
-    db.Users.insertOne({username: username, password: hashedPassword})
+    db.Users.insertOne({username: username, password: hashedPassword, profilePic: ''})
     .then(result => {
         return res.status(201).json(result);
     })
