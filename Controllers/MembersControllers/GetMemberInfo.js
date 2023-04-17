@@ -1,7 +1,8 @@
 const { db } = require("../../Database/Database");
 const joi = require("joi");
 
-exports.GetMemberInfo = async function GetMemberInfo (req, res) {
+
+module.exports.GetMemberInfo = async (req, res) => {
     
     const schema = joi.object({
         username: joi.string().required()
