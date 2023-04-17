@@ -23,7 +23,7 @@ module.exports.FollowMember = async (req, res) => {
 
         const findUser = await db.Users.find({username}).toArray();
         if (findUser[0].following.includes(followMember)) {
-            const unfollowings = db.Users.updateOne({username}, {$pull: {following: unfollowMember}})
+            const unfollowings = db.Users.updateOne({username}, {$pull: {following: followMember}})
             return res.status(200).json("unfollowed");
         }
         const followings = db.Users.updateOne({username}, {$push: {following: followMember}})
