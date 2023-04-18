@@ -19,6 +19,8 @@ module.exports.GetMemberInfo = async (req, res) => {
     try {
     const Userinfo = await db.Users.find({username}).toArray();
 
+    if (Userinfo.length === 0) return res.status(404).json('User not found');
+
     res.status(200).json(Userinfo[0]);
     }
 
