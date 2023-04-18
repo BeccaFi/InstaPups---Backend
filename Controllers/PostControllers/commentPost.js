@@ -21,8 +21,9 @@ exports.commentPost = async function commentPost(req, res) {
     )
       .then(async (result) => {
         const post = await db.Posts.findOne({ _id: new ObjectId(id) });
+        if (!post) return res.status(404).json("Post not found");
         const newComment = post.comments[post.comments.length - 1];
-        return res.status(200).json({ ...result, newComment });
+        return res.status(200).json({ ...result, comment: newComment });
       })
       .catch((err) => {
         return res.status(500).send(err);
