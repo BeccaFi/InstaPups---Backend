@@ -21,6 +21,8 @@ module.exports.Login = async (req, res) => {
     try {
     const findUser = await db.Users.find({username}).toArray();
 
+    if (findUser.length === 0) return res.status(404).json('User not found');
+
     const validPassword = await bcrypt.compare(password, findUser[0].password);
 
     if(!validPassword) return res.status(401).json('Incorrect login credentials');
