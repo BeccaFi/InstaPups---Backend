@@ -2,7 +2,6 @@ const { ObjectId } = require("mongodb");
 const { db } = require("../../Database/Database");
 const { userProfileValidation } = require("../../Validations/userProfileValidation");
 
-
 exports.userProfile = async function userProfile (req, res) {
 
     const validation = userProfileValidation(req.params);
