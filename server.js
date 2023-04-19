@@ -11,6 +11,7 @@ const { AuthenticationRoute } = require("./Routes/Authenticationroutes");
 const { Membersroute } = require("./Routes/Membersroute");
 const { Feedroute } = require("./Routes/Feedroute");
 const { PostRoutes } = require("./Routes/PostRoutes");
+const { ProfileRoute } = require("./Routes/ProfileRoutes");
 
 
 db.connect();
@@ -27,6 +28,7 @@ server.use("/auth", AuthenticationRoute);
 server.use("/feed", Feedroute)
 server.use("/posts", PostRoutes);
 server.use("/members", Membersroute);
+server.use('/profile', ProfileRoute);
 
 
 exports.server = server;
