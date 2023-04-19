@@ -9,6 +9,5 @@ const { authenticateUser } = require('../middleware/checkAuthentication');
 AuthenticationRoute.post('/login', Login);
 AuthenticationRoute.post('/register', Register);
 AuthenticationRoute.get('/navauth', authenticateUser, NavAuth);
-)
 
 module.exports.AuthenticationRoute  = AuthenticationRoute;
