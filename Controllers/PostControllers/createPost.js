@@ -3,7 +3,7 @@ const { createPostValidation } = require("../../Validations/createPostValidation
 
 
 
-exports.createPost = function createPost (req, res) {
+exports.createPost = async function createPost (req, res) {
 
     const validation = createPostValidation(req.body);
 

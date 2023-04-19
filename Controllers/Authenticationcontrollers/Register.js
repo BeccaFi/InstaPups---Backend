@@ -11,8 +11,9 @@ module.exports.Register = async (req, res) => {
 
     const {username, password} = req.body;
     const hashedPassword = bcrypt.hashSync(password, 10);
+    const defaultProfilePic = 'https://img.freepik.com/premium-vector/dog-sitting-silhouette-white-background-vector_566661-3319.jpg?w=996';
 
-    db.Users.insertOne({username: username, password: hashedPassword})
+    db.Users.insertOne({username: username, password: hashedPassword, profilePic: defaultProfilePic, following: []})
     .then(result => {
         return res.status(201).json(result);
     })

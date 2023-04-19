@@ -12,6 +12,8 @@ const { Membersroute } = require("./Routes/Membersroute");
 const { Feedroute } = require("./Routes/Feedroute");
 const { PostRoutes } = require("./Routes/PostRoutes");
 const { deleteRoute } = require("./Routes/deleteRoute");
+const { ProfileRoute } = require("./Routes/ProfileRoutes");
+
 
 db.connect();
 
@@ -28,5 +30,7 @@ server.use("/feed", Feedroute);
 server.use("/posts", PostRoutes);
 server.use("/members", Membersroute);
 server.use("/delete", deleteRoute);
+server.use('/profile', ProfileRoute);
+
 
 exports.server = server;
