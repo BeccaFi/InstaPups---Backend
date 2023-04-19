@@ -3,7 +3,6 @@ const { registerValidation } = require("../../Validations/registerValidation")
 const bcrypt = require('bcrypt');
 const { db } = require("../../Database/Database");
 
-
 module.exports.Register = async (req, res) => {
 
     const validation = registerValidation(req.body);
