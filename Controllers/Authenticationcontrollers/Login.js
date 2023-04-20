@@ -1,17 +1,12 @@
-
 const joi = require('joi');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { db } = require('../../Database/Database');
+const { loginValidation } = require('../../Validations/loginValidation');
 
 module.exports.Login = async (req, res) => {
 
-    const schema = joi.object({
-        username: joi.string().min(3).max(36).required(),
-        password: joi.string().min(6).max(30).required()
-    });
-
-    const {error, value} = schema.validate(req.body);
+    const {error, value} = loginValidation(req.body);
 
     if(error) {
         return res.status(400).send(error.details[0].message);
