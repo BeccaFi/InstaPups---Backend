@@ -14,6 +14,7 @@ module.exports.GetFeed = async (req, res) => {
         if (!findFollowings[0].following) return res.status(200).json('You are not following anyone');
 
         const mappedFollowings = findFollowings[0].following.map(follower => follower);
+        mappedFollowings.push(username);
         const findPosts = await db.Posts.find({username: {$in: mappedFollowings}}).toArray();
         return res.status(200).json(findPosts);
     }
