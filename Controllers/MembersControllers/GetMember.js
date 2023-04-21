@@ -2,11 +2,11 @@ const { ObjectId } = require('mongodb');
 const { db } = require('../../Database/Database');
 
 module.exports.GetMember = async (req, res) => {
-    const id = req.params.id;
-    const formattedId = id.substring(1);
+    const id = req.params.id.substring(1);
+    
 
     try {
-        const findUserInformation = await db.Users.find({_id: new ObjectId(formattedId)}).toArray();
+        const findUserInformation = await db.Users.find({_id: new ObjectId(id)}).toArray();
 
         if (findUserInformation.length === 0) {
             return res.status(404).json('User not found');

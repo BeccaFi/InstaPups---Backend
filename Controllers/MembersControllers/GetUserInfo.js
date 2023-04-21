@@ -1,14 +1,11 @@
 const { db } = require("../../Database/Database");
-const joi = require("joi");
+const { GetUserInfoValidation } = require("../../Validations/getUserInfoValidation");
 
 
 module.exports.GetUserInfo = async (req, res) => {
     
-    const schema = joi.object({
-        username: joi.string().required()
-    });
 
-    const {value, error } = schema.validate(req.query);
+    const {value, error } = GetUserInfoValidation(req.query);
 
     const {username} = value;
 
