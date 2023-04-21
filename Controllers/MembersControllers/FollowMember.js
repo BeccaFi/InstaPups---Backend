@@ -1,13 +1,11 @@
 const { db } = require('../../Database/Database');
-const joi = require('joi');
+const { followMemberValidation } = require('../../Validations/followMemberValidation');
 
 module.exports.FollowMember = async (req, res) => {
 
-    const schema = joi.object({
-        username: joi.string().required(),
-    });
+    
 
-    const { value, error } = schema.validate(req.body);
+    const { value, error } = followMemberValidation(req.body);
 
     const followMember = value.username;
     const { username } = req.user;
