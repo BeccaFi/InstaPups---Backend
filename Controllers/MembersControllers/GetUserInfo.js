@@ -1,11 +1,11 @@
 const { db } = require("../../Database/Database");
-const { GetUserInfoValidation } = require("../../Validations/getUserInfoValidation");
+const { getUserInfoValidation } = require("../../Validations/getUserInfoValidation");
 
 
 module.exports.GetUserInfo = async (req, res) => {
     
 
-    const {value, error } = GetUserInfoValidation(req.query);
+    const {value, error } = getUserInfoValidation(req.query);
 
     const {username} = value;
 
