@@ -9,7 +9,7 @@ class MongoDatabase {
   client;
 
   //Name of the database to use.
-  database = "InstaPups-Backend";
+  database = "instapups";
 
   // Array of collections you want to be able to access.
   collections = ["Users", "Posts"];
