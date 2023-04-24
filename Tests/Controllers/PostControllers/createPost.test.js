@@ -18,7 +18,7 @@ describe("Check success when user submits a new create post form", () => {
       .send({
         datePosted: "2023-04-13 15:03",
         text: "Today I ate a dust ball before realizing it was a dust ball. Now a guilty pleasure.",
-        photos: [`http://dustballpics.com/?dustballnr=4`],
+        photos: [`https://static.wikia.nocookie.net/earthbound/images/1/11/Dustball.png/revision/latest/thumbnail/width/360/height/450?cb=20100602115334`],
       })
       .set("Cookie", cookies);
     expect(res.status).toBe(201);
