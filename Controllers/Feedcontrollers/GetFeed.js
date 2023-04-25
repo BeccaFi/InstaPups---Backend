@@ -12,7 +12,7 @@ module.exports.GetFeed = async (req, res) => {
         const mappedFollowings = findFollowings[0].following.map(follower => follower);
         mappedFollowings.push(username);
         const findPosts = await db.Posts.find({username: {$in: mappedFollowings}}).sort({datePosted: -1}).toArray();
-        return res.status(200).json(findPosts);
+        return res.status(200).json({loggedInUser: username, posts: findPosts});
     }
     catch (error) {
         return res.status(500).json('Something went wrong');
