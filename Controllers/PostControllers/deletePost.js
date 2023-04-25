@@ -7,7 +7,7 @@ exports.deletePost = async function deletePost(req, res) {
   const { id } = req.params;
   const { username } = req.user;
 
-  const validation = deletePostValidation(id);
+  const validation = deletePostValidation(req.params);
   if (validation.error) return res.status(400).json(validation.error.details[0].message);
 
   try {
