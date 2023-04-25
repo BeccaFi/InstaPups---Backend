@@ -11,7 +11,7 @@ module.exports.FollowMember = async (req, res) => {
     const { username } = req.user;
     
     if (error) {
-        return res.status(400).json('Invalid username');
+        return res.status(400).json(error.details[0].message);
     }
     if (username === followMember) {
         return res.status(400).json('You cannot follow yourself');
