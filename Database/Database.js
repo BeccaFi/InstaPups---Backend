@@ -12,9 +12,7 @@ class MongoDatabase {
 
   async connect() {
     try {
-      console.log("Attempting to connect to database.");
       this.client = await MongoClient.connect(this.url);
-      console.log("Successfully connected to the database.");
     } catch (err) {
       console.log(err);
     }
@@ -23,7 +21,6 @@ class MongoDatabase {
   }
 
   async disconnect() {
-    console.log("closing DB connection");
     await this.client.close();
   }
 
