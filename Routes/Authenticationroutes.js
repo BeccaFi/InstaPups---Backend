@@ -3,7 +3,7 @@ const AuthenticationRoute = express.Router();
 const { Login } = require("../Controllers/Authenticationcontrollers/Login");
 const { Register } = require("../Controllers/Authenticationcontrollers/Register");
 const { NavAuth } = require("../Controllers/Authenticationcontrollers/NavAuth");
-const { authenticateUser } = require("../middleware/checkAuthentication");
+const { authenticateUser } = require("../Middlewares/checkAuthentication");
 const { Logout } = require("../Controllers/Authenticationcontrollers/Logout");
 
 AuthenticationRoute.post("/login", Login);
