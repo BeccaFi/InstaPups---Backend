@@ -13,12 +13,13 @@ module.exports.GetMember = async (req, res) => {
     const loggedInUser = await db.Users.findOne({username: username}, {projection: {password: 0}});
     const follows = loggedInUser.following;
     const findUser = await db.Users.findOne({_id: new ObjectId(id)}, {projection: {password: 0}});
-    const findUserUsername = findUser.username; //To get the username of whoevers' profile we're viewing, not our own username from req.user.
 
 
     try {
 
-        if (findUser.length === 0) return res.status(404).json('User not found');
+        if (!findUser) return res.status(404).json('User not found');
+
+        const findUserUsername = findUser.username;
 
         if(id === loggedInUser._id.toString()) {
             const userPosts = await db.Posts.find({username: username}).sort({datePosted: -1}).toArray();
@@ -34,10 +35,8 @@ module.exports.GetMember = async (req, res) => {
         const userPosts = await db.Posts.find({username: findUserUsername}).sort({datePosted: -1}).toArray();
         res.status(200).json({user: findUser, loggedInUser: loggedInUser, posts: userPosts, followMessage: `You need to follow ${findUserUsername} to see their posts.`});
         return;
-        // const findUsersPosts = await db.Posts.find({username: findUserInformation.username}).toArray();
-
-        // return res.status(200).json({user: findUserInformation[0], posts: findUsersPosts});
-    } catch (error) {
+    } 
+    catch (error) {
         return res.status(500).json('Something went wrong');
     }
 }
