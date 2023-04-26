@@ -2,19 +2,14 @@ const { MongoClient } = require("mongodb");
 require("dotenv").config();
 
 class MongoDatabase {
-  // The URL required to connect to your MongoDB database.
   url = process.env.URL;
 
-  //The active MongoDB client. Used
   client;
 
-  //Name of the database to use.
   database = "instapups";
 
-  // Array of collections you want to be able to access.
   collections = ["Users", "Posts"];
 
-  // Establishes a connection to your MongoDB database.
   async connect() {
     try {
       console.log("Attempting to connect to database.");
@@ -27,13 +22,11 @@ class MongoDatabase {
     this.setupCollections();
   }
 
-  // Closes the connection to your MongoDB database.
   async disconnect() {
     console.log("closing DB connection");
     await this.client.close();
   }
 
-  // Takes an array of collection names and sets up access to those collections.
   setupCollections() {
     for (const collection of this.collections) {
       this[collection] = this.client.db(this.database).collection(collection);
