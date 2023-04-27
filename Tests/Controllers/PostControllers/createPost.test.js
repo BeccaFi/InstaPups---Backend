@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const cookie = require("cookie");
 const { server } = require("../../../server");
 const { db } = require("../../../Database/Database");
-const { createPost } = require("../../../Controllers/PostControllers/CreatePost");
+const { createPost } = require("../../../Controllers/PostControllers/createPost");
 
 describe("Check success when user submits a new create post form", () => {
   const payload = { username: "Loki" };

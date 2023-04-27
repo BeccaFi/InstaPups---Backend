@@ -4,9 +4,7 @@ const secret = process.env.JWT_SECRET;
 const authenticateUser = (req, res, next) => {
   const authToken = req.cookies.authToken;
 
-  if (!authToken) {
-    return res.status(401).json({ message: "Unauthorized" });
-  }
+  if (!authToken) return res.status(401).json({ message: "Unauthorized" });
 
   try {
     const decodedToken = jwt.verify(authToken, process.env.JWT_SECRET);
