@@ -1,6 +1,6 @@
 const request = require("supertest");
 const { server } = require("../../../server");
-const { Register } = require("../../../Controllers/Authenticationcontrollers/Register");
+const { Register } = require("../../../Controllers/AuthenticationControllers/Register");
 const { db } = require("../../../Database/Database");
 
 describe('Register new user endpoint', () => {
