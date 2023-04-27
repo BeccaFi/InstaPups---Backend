@@ -26,10 +26,6 @@ describe('Login', () => {
         
     });
 
-    // afterAll(() => {
-    //  d  
-    // });
-
     it('a failed login should return statuscode 500 if a database-error', async () => {
         db.disconnect(); 
         const res = await request(server).post('/auth/login').send({username: 'Loki', password: 'hundben'})
