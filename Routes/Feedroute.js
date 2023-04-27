@@ -1,9 +1,9 @@
 const express = require('express');
-const Feedroute = express.Router();
+const FeedRoute = express.Router();
 const { authenticateUser } = require('../Middlewares/checkAuthentication');
 
-const { GetFeed } = require('../Controllers/Feedcontrollers/GetFeed');
+const { GetFeed } = require('../Controllers/FeedControllers/GetFeed');
 
-Feedroute.get('/', authenticateUser, GetFeed);
+FeedRoute.get('/', authenticateUser, GetFeed);
 
-module.exports.Feedroute = Feedroute;
+module.exports.FeedRoute = FeedRoute;
