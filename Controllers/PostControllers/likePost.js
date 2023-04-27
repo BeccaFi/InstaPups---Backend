@@ -10,11 +10,6 @@ exports.toggleLikePost = async function toggleLikePost(req, res) {
   const { username } = req.user;
   const { id } = req.params;
   
-    // $cond needs a boolean value to return then if true, else if false. $in does not return boolean, tried converting it but didn't work (odd response). Save for future fix.
-    // Tried: db.Posts.updateOne({_id: new ObjectId(id)}, {$cond: {if: {$toBool: {likes: {$in: [username]}}}}, then: {$pull: {likes: username}}, else: {$push: {likes: username}}})
-
-    //This will do in the meantime
-
   const post = await db.Posts.findOne({
     _id: new ObjectId(id),
     likes: { $in: [username] },
