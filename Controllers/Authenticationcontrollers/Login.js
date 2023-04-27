@@ -16,8 +16,8 @@ module.exports.Login = async (req, res) => {
     const { username, password } = value;
     
     try {
-    const findUser = await db.Users.findOne({ username });
-
+    const findUser = await db.Users.find({ username }).toArray();
+    
     if (!findUser) return res.status(404).json('That user does not exist');
 
     const validPassword = await bcrypt.compare(password, findUser[0].password);
@@ -34,6 +34,6 @@ module.exports.Login = async (req, res) => {
 
     return res.status(200).send({ token });
   } catch (error) {
-    return res.status(500).send(error);
+    return res.status(500).json(error);
   }
 };
