@@ -7,7 +7,7 @@ const { db } = require("../../Database/Database");
 module.exports.Register = async (req, res) => {
 
     const validation = registerValidation(req.body);
-    if(validation.error) return res.status(400).send(validation.error.details[0].message);
+    if(validation.error) return res.status(400).json(validation.error.details[0].message);
 
     const {username, password} = req.body;
     const hashedPassword = bcrypt.hashSync(password, 10);
