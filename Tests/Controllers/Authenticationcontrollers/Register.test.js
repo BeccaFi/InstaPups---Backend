@@ -2,7 +2,6 @@ const request = require("supertest");
 const { server } = require("../../../server");
 const { Register } = require("../../../Controllers/Authenticationcontrollers/Register");
 const { db } = require("../../../Database/Database");
-// const joi = require("joi");
 
 describe('Register new user endpoint', () => {
 
@@ -13,8 +12,6 @@ describe('Register new user endpoint', () => {
         const res = await request(server).post('/auth/register').send({username: `${numb}`, password: 'testpass', confirmPassword: 'testpass'});
         expect(res.status).toBe(201);
     });
-
-
 
     it('POST /auth/register should respond with 400 if body is ommitted or insufficient', async () => {
         const res = await request(server).post('/auth/register').send({username: 'p'});
