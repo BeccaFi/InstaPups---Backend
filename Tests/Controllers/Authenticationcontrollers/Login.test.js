@@ -1,7 +1,7 @@
 const { db } = require('../../../Database/Database');
 const { server } = require('../../../server');
 const request = require('supertest');
-const { Login } = require('../../../Controllers/Authenticationcontrollers/Login');
+const { Login } = require('../../../Controllers/AuthenticationControllers/Login');
 
 describe('Login', () => {
     it('a successful login should return statuscode 200', async () => {
