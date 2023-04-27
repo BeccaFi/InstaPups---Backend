@@ -6,8 +6,7 @@ const {
 
 module.exports.GetMember = async (req, res) => {
   const validation = userProfileValidation(req.params);
-  if (validation.error)
-    return res.status(400).json(validation.error.details[0].message);
+  if (validation.error) return res.status(400).json(validation.error.details[0].message);
 
   const { username } = req.user;
   const { id } = req.params;
