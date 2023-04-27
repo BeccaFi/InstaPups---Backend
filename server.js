@@ -7,10 +7,10 @@ const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
 const { db } = require("./Database/Database");
 
-const { AuthenticationRoute } = require("./Routes/Authenticationroutes");
-const { Membersroute } = require("./Routes/Membersroute");
-const { Feedroute } = require("./Routes/Feedroute");
-const { PostRoutes } = require("./Routes/PostRoutes");
+const { AuthenticationRoute } = require("./Routes/AuthenticationRoute");
+const { MembersRoute } = require("./Routes/MembersRoute");
+const { FeedRoute } = require("./Routes/FeedRoute");
+const { PostRoute } = require("./Routes/PostRoute");
 
 db.connect();
 
@@ -23,8 +23,8 @@ server.use(
 server.use(cookieParser());
 server.use(express.json());
 server.use("/auth", AuthenticationRoute);
-server.use("/feed", Feedroute);
-server.use("/posts", PostRoutes);
-server.use("/members", Membersroute);
+server.use("/feed", FeedRoute);
+server.use("/posts", PostRoute);
+server.use("/members", MembersRoute);
 
 exports.server = server;
