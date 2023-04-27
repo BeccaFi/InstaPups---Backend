@@ -11,14 +11,7 @@ exports.commentPost = async function commentPost(req, res) {
     const { username } = req.user;
     const { id, comment } = req.body;
   
-    db.Posts.updateOne(
-      { _id: new ObjectId(id) },
-      {
-        $push: {
-          comments: { username: username, comment: comment },
-        },
-      }
-    )
+    db.Posts.updateOne({ _id: new ObjectId(id) }, {$push: {comments: { username: username, comment: comment }}})
       .then(async (result) => {
         const post = await db.Posts.findOne({ _id: new ObjectId(id) });
         if (!post) return res.status(404).json("Post not found");

@@ -21,11 +21,12 @@ module.exports.GetMember = async (req, res) => {
     { _id: new ObjectId(id) },
     { projection: { password: 0 } }
   );
-  const findUserUsername = findUser.username;
 
   try {
-    if (findUser.length === 0) return res.status(404).json("User not found");
+    if (!findUser) return res.status(404).json("User not found");
 
+    const findUserUsername = findUser.username;
+    
     if (id === loggedInUser._id.toString()) {
       const userPosts = await db.Posts.find({ username: username })
         .sort({ datePosted: -1 })
@@ -36,7 +37,7 @@ module.exports.GetMember = async (req, res) => {
         posts: userPosts,
       });
     }
-
+    
     if (follows.includes(findUserUsername)) {
       const userPosts = await db.Posts.find({ username: findUserUsername })
         .sort({ datePosted: -1 })

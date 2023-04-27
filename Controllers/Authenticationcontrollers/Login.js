@@ -11,11 +11,14 @@ module.exports.Login = async (req, res) => {
     return res.status(400).send(error.details[0].message);
   }
 
-  const { username, password } = value;
-  try {
-    const findUser = await db.Users.find({ username }).toArray();
+    if(error) return res.status(400).send(error.details[0].message);
 
-    if (findUser.length === 0) return res.status(404).json("That user does not exist");
+    const { username, password } = value;
+    
+    try {
+    const findUser = await db.Users.findOne({ username });
+
+    if (!findUser) return res.status(404).json('That user does not exist');
 
     const validPassword = await bcrypt.compare(password, findUser[0].password);
 

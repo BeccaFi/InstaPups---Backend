@@ -15,9 +15,9 @@ exports.deletePost = async function deletePost(req, res) {
     if (findPost.username !== username) return res.status(401).json("You are not authorized to delete this post");
 
     const deletePost = await db.Posts.deleteOne({ _id: new ObjectId(id) });
-    return res.status(200).json(deletePost);
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json("Something went wrong");
+    return res.status(200).json("Post deleted!");
+  }
+  catch (error) {
+    return res.status(500).json("Something went wrong on the server side...");
   }
 };

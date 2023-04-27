@@ -4,15 +4,12 @@ const { getUserInfoValidation } = require("../../Validations/getUserInfoValidati
 
 module.exports.GetUserInfo = async (req, res) => {
     
-
     const {value, error } = getUserInfoValidation(req.query);
 
     const {postUsername} = value;
     const {username} = req.user;
 
-    if (error) {
-        return res.status(400).json('Invalid username');
-    }
+    if (error) return res.status(400).json('Invalid username');
 
     try {
     const Userinfo = await db.Users.find({username: postUsername}).toArray();
