@@ -34,6 +34,6 @@ module.exports.Login = async (req, res) => {
 
     return res.status(200).send({ token });
   } catch (error) {
-    return res.status(500).json(error);
+    return res.status(500).json("Something seems to be wrong with the server. Please try again later.");
   }
 };

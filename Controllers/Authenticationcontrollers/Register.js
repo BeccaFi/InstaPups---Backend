@@ -19,6 +19,6 @@ module.exports.Register = async (req, res) => {
     })
     .catch(err => {
         if(err.code === 11000) return res.status(500).json("That username is already taken.");
-        return res.status(500).send(err);
+        return res.status(500).json("There seems to be an issue with the server, please try again later.");
     })
 }
