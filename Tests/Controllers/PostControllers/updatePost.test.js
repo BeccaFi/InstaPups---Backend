@@ -22,7 +22,7 @@ describe("PATCH posts", () => {
   it("Should include new content to replace the old content", async () => {
     const text = "testing stuff";
     const response = await request(server)
-      .patch(`/posts/update/${id}`)
+      .patch(`/posts/${id}/update`)
       .send({ text: "sweet", photos: ["HEJ", "SWeeT"] })
       .set("Cookie", cookies);
     expect(response.body).toBeTruthy();
@@ -31,7 +31,7 @@ describe("PATCH posts", () => {
   it("Should return statuscode 200 if the PATCH was successful", async () => {
     const text = "testing stuff";
     const response = await request(server)
-      .patch(`/posts/update/${id}`)
+      .patch(`/posts/${id}/update`)
       .send({ text: "atchoo", photos: ["hmmmmm", "nnnnmmm"] })
       .set("Cookie", cookies);
     expect(response.status).toBe(200);
@@ -40,7 +40,7 @@ describe("PATCH posts", () => {
   it("Should return statuscode 400 if validation failed", async () => {
     const fail = "testing stuff";
     const response = await request(server)
-      .patch(`/posts/update/${id}`)
+      .patch(`/posts/${id}/update`)
       .send({ fail: "Damnit!", photos: ["ouch", "mjao"] })
       .set("Cookie", cookies);
     expect(response.status).toBe(400);
@@ -49,7 +49,7 @@ describe("PATCH posts", () => {
   it("Should return statuscode 500 if the PATCH was unsuccessful", async () => {
     db.disconnect();
     const response = await request(server)
-      .patch(`/posts/update/${id}`)
+      .patch(`/posts/${id}/update`)
       .send({ text: "olof", photos: ["hello", "goodbye"] })
       .set("Cookie", cookies);
     expect(response.status).toBe(500);
