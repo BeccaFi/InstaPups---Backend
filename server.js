@@ -16,7 +16,7 @@ db.connect();
 
 server.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "http://localhost:3000", // Change for deploy
     credentials: true,
   })
 );
