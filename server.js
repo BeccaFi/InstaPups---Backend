@@ -16,7 +16,7 @@ db.connect();
 
 server.use(
   cors({
-    origin: "https://instapups.onrender.com",
+    origin: "https://instapups-server.onrender.com",
     credentials: true,
   })
 );
