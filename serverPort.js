@@ -1,3 +1,3 @@
 const { server } = require("./server");
 
-server.listen(5051);
+server.listen(5050);
