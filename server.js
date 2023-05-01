@@ -27,4 +27,6 @@ server.use("/feed", Feedroute);
 server.use("/posts", PostRoutes);
 server.use("/members", Membersroute);
 
+server.get('/ping', (req, res) => res.sendStatus(200));
+
 exports.server = server;
